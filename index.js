@@ -101,6 +101,21 @@ app.delete("/responder/excluir/:id", (req, res) => {
     });
 });
 
+app.delete("/pergunta/excluir/:id", (req, res) => {
+  const perguntaId = req.params.id;
+
+  Pergunta.destroy({
+    where: { id : perguntaId },
+  })
+    .then(() => {
+      res.status(200).send("pergunta excluída com sucesso.");
+    })
+    .catch((error) => {
+      console.error("Erro ao excluir pergunta:", error);
+      res.status(500).send("Erro ao excluir pergunta.");
+    });
+});
+
 // Iniciar o servidor
 app.listen(8080, () => {
   console.log("App rodando!");
